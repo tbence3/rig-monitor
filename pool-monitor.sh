@@ -152,7 +152,7 @@ if [ -f ${DATA_DIR}/${POOL_DATA_FILE} ] ; then
        			awk -f ${BASE_DIR}/awk/filter_pool_records_by_time_and_tag.awk -v label=$LABEL report=currentStats last_record=$LAST_RECORD ${DATA_DIR}/${POOL_DATA_FILE} > ${TMP_DIR}/${POOL_TYPE}_ethermine_stats.tmp
        			awk -f ${BASE_DIR}/awk/filter_pool_records_by_tag.awk -v label=$LABEL report=payouts ${DATA_DIR}/${POOL_DATA_FILE} > ${TMP_DIR}/${POOL_TYPE}_ethermine_payouts.tmp
 
-			mysql $MYSQL_VERBOSE -u ${GRAFANA_DB_USER} -p${GRAFANA_DB_PWD}  --local-infile rigdata < ${SQL_SCRIPTS}/ingest_ethermine_data.sql
+			mysql $MYSQL_VERBOSE -u ${GRAFANA_DB_USER} -p${GRAFANA_DB_PWD} -h ${GRAFANA_DB_HOST}  --local-infile rigdata < ${SQL_SCRIPTS}/ingest_ethermine_data.sql
 
 		elif [ "$POOL_TYPE" == "MPOS" ]; then
 			# filter out records using report and LAST_RECORD as filters
@@ -160,7 +160,7 @@ if [ -f ${DATA_DIR}/${POOL_DATA_FILE} ] ; then
 			# filter out records using report and LAST_RECORD as filters
        			awk -f ${BASE_DIR}/awk/filter_pool_records_by_tag.awk -v label=$LABEL report=getdashboarddata_payouts ${DATA_DIR}/${POOL_DATA_FILE} > ${TMP_DIR}/${POOL_TYPE}_getdashboarddata_payouts.tmp
 
-			mysql $MYSQL_VERBOSE -u ${GRAFANA_DB_USER} -p${GRAFANA_DB_PWD}  --local-infile rigdata < ${SQL_SCRIPTS}/ingest_mpos_data.sql
+			mysql $MYSQL_VERBOSE -u ${GRAFANA_DB_USER} -p${GRAFANA_DB_PWD} -h ${GRAFANA_DB_HOST}  --local-infile rigdata < ${SQL_SCRIPTS}/ingest_mpos_data.sql
 
 		elif [ "$POOL_TYPE" == "NANOPOOL" ]; then
 			# filter out records using report and LAST_RECORD as filters
@@ -168,7 +168,7 @@ if [ -f ${DATA_DIR}/${POOL_DATA_FILE} ] ; then
 			# filter out records using report and LAST_RECORD as filters
        			awk -f ${BASE_DIR}/awk/filter_pool_records_by_tag.awk -v label=$LABEL report=payments ${DATA_DIR}/${POOL_DATA_FILE} > ${TMP_DIR}/${POOL_TYPE}_payments.tmp
 
-			mysql $MYSQL_VERBOSE -u ${GRAFANA_DB_USER} -p${GRAFANA_DB_PWD}  --local-infile rigdata < ${SQL_SCRIPTS}/ingest_nanopool_data.sql
+			mysql $MYSQL_VERBOSE -u ${GRAFANA_DB_USER} -p${GRAFANA_DB_PWD} -h ${GRAFANA_DB_HOST}  --local-infile rigdata < ${SQL_SCRIPTS}/ingest_nanopool_data.sql
 
 		fi
 
