@@ -36,7 +36,7 @@ for TABLE in $DB_TABLES; do
 
 	EXPIRED_DATA_SQL="DELETE FROM $TABLE WHERE UNIX_TIMESTAMP(time) < ${EXPIRED_DATA};"
 	echo "SQL to remove expired data from $TABLE: ${EXPIRED_DATA_SQL}"
-	echo $EXPIRED_DATA_SQL | mysql -v -v -u ${GRAFANA_DB_USER} -p${GRAFANA_DB_PWD}  --local-infile rigdata
+	echo $EXPIRED_DATA_SQL | mysql -v -v -u ${GRAFANA_DB_USER} -p${GRAFANA_DB_PWD} -h ${GRAFANA_DB_HOST}  --local-infile rigdata
 
 done
 
@@ -45,7 +45,7 @@ for TABLE in $PAYOUT_DB_TABLES; do
 
 	EXPIRED_DATA_SQL="DELETE FROM $TABLE WHERE UNIX_TIMESTAMP(date) < ${EXPIRED_DATA};"
 	echo "SQL to remove payout expired data from $TABLE: ${EXPIRED_DATA_SQL}"
-	echo $EXPIRED_DATA_SQL | mysql -v -v -u ${GRAFANA_DB_USER} -p${GRAFANA_DB_PWD}  --local-infile rigdata
+	echo $EXPIRED_DATA_SQL | mysql -v -v -u ${GRAFANA_DB_USER} -p${GRAFANA_DB_PWD} -h ${GRAFANA_DB_HOST} --local-infile rigdata
 
 done
 

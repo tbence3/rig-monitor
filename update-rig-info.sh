@@ -40,7 +40,7 @@ if [ -f ${DATA_DIR}/${INFO_DATA_FILE} ]; then
 	grep -e '^RIG' ${DATA_DIR}/${INFO_DATA_FILE} | cut -d',' -f 2- > ${TMP_DIR}/rig_info.tmp
 	grep -e '^GPU' ${DATA_DIR}/${INFO_DATA_FILE} | cut -d',' -f 2- > ${TMP_DIR}/gpu_info.tmp
 	# INSERT INFO DATA INTO DB	
-	mysql -u ${GRAFANA_DB_USER} -p${GRAFANA_DB_PWD}  --local-infile rigdata < ${SQL_SCRIPTS}/update_info_data.sql
+	mysql -u ${GRAFANA_DB_USER} -p${GRAFANA_DB_PWD} -h ${GRAFANA_DB_HOST}  --local-infile rigdata < ${SQL_SCRIPTS}/update_info_data.sql
 fi
 
 IFS=$SAVEIFS
